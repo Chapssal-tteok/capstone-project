@@ -1,4 +1,4 @@
-# [Groud Rule]
+# :dango: 팀 찹쌀떡의 Groud Rule :dango:
 
 ### :raised_hands: 팀 소개
 -> 신정화 (ISFJ) 021214 / 차현주(INTP) 020919
