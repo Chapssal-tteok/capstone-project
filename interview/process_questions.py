@@ -1,77 +1,87 @@
 import os
 import pandas as pd
 from sentence_transformers import SentenceTransformer
-from chromadb.config import Settings
-from chromadb import Client
-from ast import literal_eval
+from langchain.vectorstores import Chroma
+from langchain.docstore.document import Document
 
-# Step 1: CSV 파일 로드
-def load_csv(file_path):
-    print("[1] CSV 파일 로드")
-    data = pd.read_csv(file_path)
+# 래핑된 SentenceTransformer 클래스 정의
+class LangChainSentenceTransformer:
+    def __init__(self, model_name):
+        self.model = SentenceTransformer(model_name)
+    
+    def embed_documents(self, texts):
+        return [self.model.encode(text) for text in texts]
+    
+    def embed_query(self, text):
+        return self.model.encode(text)
+
+# Step 1: CSV 파일 로드 및 초기화
+def init_db(csv_filename="dataset_question.csv", persist_directory="./db"):
+    print("[1] CSV 파일 로드 및 DB 초기화")
+
+    # CSV 데이터 확인 및 로드
+    if not os.path.exists(csv_filename):
+        raise FileNotFoundError(f"CSV 파일이 존재하지 않습니다: {csv_filename}")
+    data = pd.read_csv(csv_filename)
+    print("CSV 데이터 로드 완료:")
     print(data.head())
-    return data
 
-# Step 2: 질문 데이터 벡터화
-def vectorize_questions(data, model_name='all-MiniLM-L6-v2'):
-    print("[2] 질문 데이터 벡터화")
-    model = SentenceTransformer(model_name)
-    data["embedding"] = data["질문"].apply(lambda x: model.encode(x).tolist())
-    data.to_csv("vectorized_questions.csv", index=False)
-    print("벡터화 완료! vectorized_questions.csv에 저장되었습니다.")
-    return data
+    # Document 객체로 변환
+    documents = [
+        Document(page_content=row["질문"], metadata={"기업명": row["기업명"], "경력": row["경력"], "직무": row["직무"]})
+        for _, row in data.iterrows()
+    ]
 
-# Step 3: 벡터 DB에 데이터 저장
-def store_in_chromadb(data, db_directory="C:/testtemp/db"):
-    print("[3] 벡터 DB에 데이터 저장")
+    # 래핑된 SentenceTransformer 임베딩 함수 사용
+    embedding_function = LangChainSentenceTransformer('all-MiniLM-L6-v2')
 
-    if not os.path.exists(db_directory):
-        os.makedirs(db_directory)
-        print(f"디렉토리 생성: {db_directory}")
-
-    # ChromaDB 클라이언트 초기화
-    settings = Settings(persist_directory=db_directory)
-    client = Client(settings)
-
-    # 디버깅: Settings 정보 출력
-    print("ChromaDB Settings:")
-    print(f"persist_directory: {settings.persist_directory}")
-
-    collection = client.get_or_create_collection(name="interview_questions")
-
-    # 데이터를 벡터 DB에 추가
-    for idx, row in data.iterrows():
-        # embedding 데이터를 안전하게 변환
-        embedding = row["embedding"]
-        if isinstance(embedding, str):  # 문자열일 경우만 변환
-            embedding = literal_eval(embedding)
-        
-        # 고유 ID 생성 (여기서는 인덱스를 사용)
-        unique_id = f"question_{idx}"
-        
-        collection.add(
-            ids=[unique_id],  # 고유 ID 추가
-            documents=[row["질문"]],
-            metadatas={"기업명": row["기업명"], "경력": row["경력"], "직무": row["직무"]},
-            embeddings=[embedding]
+    # ChromaDB가 이미 존재하는지 확인
+    if os.path.exists(persist_directory):
+        print("기존 ChromaDB 로드 중...")
+        db = Chroma(
+            persist_directory=persist_directory,
+            embedding_function=embedding_function
         )
+    else:
+        print("새로운 ChromaDB 생성 중...")
+        # 문서를 DB에 추가하고 저장
+        db = Chroma.from_documents(
+            documents,
+            embedding_function,
+            persist_directory=persist_directory
+        )
+    
+    # 저장된 문서 수 확인
+    print(f"DB 저장 완료. 저장된 문서 개수: {len(documents)}")
+    return db
 
-    print(f"디렉토리 내용: {os.listdir(db_directory)}")
-    print(f"컬렉션 이름: {collection.name}")
-    print(f"저장된 문서 개수: {collection.count()}")
-    print("데이터가 ChromaDB에 저장되었습니다!")
-    return collection
+# Step 2: 사용자 입력 기반 검색
+def search_db(query, persist_directory="./db"):
+    print("[2] 사용자 입력 기반 검색")
+
+    # 래핑된 SentenceTransformer 임베딩 함수 사용
+    embedding_function = LangChainSentenceTransformer('all-MiniLM-L6-v2')
+
+    # ChromaDB 로드
+    db = Chroma(
+        persist_directory=persist_directory,
+        embedding_function=embedding_function
+    )
+
+    # 검색 실행
+    results = db.similarity_search(query, k=3)
+    print(f"검색 결과 ({len(results)}개 문서 반환):")
+    for result in results:
+        print(result)
 
 # 메인 함수
 if __name__ == "__main__":
     # CSV 파일 경로
     csv_file_path = "dataset_question.csv"
 
-    # Step 1: 데이터 로드
-    data = load_csv(csv_file_path)
+    # Step 1: ChromaDB 초기화
+    db = init_db(csv_filename=csv_file_path, persist_directory="./db")
 
-    # Step 2: 벡터화
-    data = vectorize_questions(data)
-
-    # Step 3: 벡터 DB에 저장
-    collection = store_in_chromadb(data)
+    # Step 2: 검색 테스트
+    user_query = "현대자동차에 지원하는 이유는 무엇인가요?"
+    search_db(query=user_query, persist_directory="./db")
