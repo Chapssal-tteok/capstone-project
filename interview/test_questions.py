@@ -33,7 +33,7 @@ def search_db(query, persist_directory="./db"):
 
 if __name__ == "__main__":
     # 사용자 쿼리
-    user_query = "현대자동차에 지원하는 이유는 무엇인가요?"
+    user_query = "현대모비스 면접에서 자주 나오는 질문이 무엇인가요??"
     
     # Step 2: 검색 테스트
     search_db(query=user_query, persist_directory="./db")
