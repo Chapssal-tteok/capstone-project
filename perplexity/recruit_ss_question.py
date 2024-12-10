@@ -24,7 +24,8 @@ payload = {
     "presence_penalty": 0
 }
 headers = {
-    "Authorization": "Bearer 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",
+    # api key 보안 필요
+    "Authorization": "Bearer [api-key]",
     "Content-Type": "application/json"
 }
 
