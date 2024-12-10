@@ -37,7 +37,7 @@ def search_db(query, persist_directory="./db"):
 
 if __name__ == "__main__":
     # 사용자 쿼리 입력 (검색할 키워드 또는 문장)
-    user_query = "현대모비스 기계엔지니어 면접에서 기술적인 질문은 어떤 것이 있나요?"
+    user_query = "현대모비스 면접에서 지원 동기를 묻는 질문은 무엇인가요?"
     
     # ChromaDB에서 쿼리 검색 실행
     search_db(query=user_query, persist_directory="./db")
