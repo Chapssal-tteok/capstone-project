@@ -1,0 +1,32 @@
+{
+    "id": "3ac85652-f944-4490-86a1-738abc8d72a7",
+    "model": "llama-3.1-sonar-small-128k-online",
+    "created": 1733672505,
+    "usage": {
+      "prompt_tokens": 23,
+      "completion_tokens": 252,
+      "total_tokens": 275
+    },
+    "citations": [
+      "https://www.jobkorea.co.kr/Company/1696583/Recruit",
+      "https://www.samsungcareers.com/hr/?no=14277",
+      "https://search.zdnet.co.kr/?area=4",
+      "https://linkareer.com/activity/208725",
+      "https://linkareer.com/activity/167403"
+    ],
+    "object": "chat.completion",
+    "choices": [
+      {
+        "index": 0,
+        "finish_reason": "stop",
+        "message": {
+          "role": "assistant",
+          "content": "삼성전자의 2024년도 SW 신입사원 채용 공고 문서는 다음과 같이 정리되어 있습니다:\n\n- **SW Academy Academy:** \n  - **신입사원:** \n    - **접수 기간:** 마감 ~ 2024.09.11\n    - **근무 지역:** 경기, 충남, 경기 외 3\n    - **직무:** 소프트웨어 개발자, 전기·전자 엔지니어[1].\n\n- **DX부문:**\n  - **모집 기간:** 마감 ~ 2024.09.11\n  - **근무 지역:** 전국\n  - **직무:** 소프트웨어 개발자, 제품 영업[1].\n\n- **삼성전자 유일한 SW Academy Academy:**\n  - **접수 기간:** 마감 ~ 2024.09.11\n  - **근무 지역:** 경기\n  - **직무:** 소프트웨어 개발자[1].\n\n### 참고사항\n삼성전자의 SW신입사원 채용은 주로 Samsung Convergence SW Academy이나 연산부문의 유기적_UNDERSTANDING 교체__)\n\n[1]에서 자세한 내용을 확인할 수 있습니다."
+        },
+        "delta": {
+          "role": "assistant",
+          "content": ""
+        }
+      }
+    ]
+  }
