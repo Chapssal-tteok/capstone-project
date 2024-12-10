@@ -6,7 +6,7 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 
 # WebDriver의 경로 설정 (크롬 드라이버의 위치 지정)
-driver_path = "C:\\Users\\ShinJunghwa\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe"
+driver_path = "C:\\Users\\Junghwa\\Downloads\\chromedriver-win64\\chromedriver-win64\\chromedriver.exe"
 service = Service(executable_path=driver_path)
 options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(service=service, options=options)
@@ -28,10 +28,10 @@ with open(output_file, mode="a" if file_exists else "w", newline="", encoding="u
     if not file_exists:
         writer.writerow(["기업명", "경력", "직무", "질문"])  # CSV 파일의 헤더 작성
 
-    for page_number in range(1, 17):
+    for page_number in range(1, 13):
 
         # 웹페이지 URL을 동적으로 생성하여 접속
-        web_url = f"https://www.jobkorea.co.kr/starter/review/view?FavorCo_Stat=0&schTxt=%EC%82%BC%EC%84%B1&OrderBy=0&Page=1&C_Idx=1&Half_Year_Type_Code=0&Ctgr_Code=5&VPage={page_number}"
+        web_url = f"https://www.jobkorea.co.kr/starter/Review/view?FavorCo_Stat=0&schTxt=LG&OrderBy=0&Page=1&C_Idx=8&Half_Year_Type_Code=0&Ctgr_Code=5&VPage={page_number}"
         driver.get(web_url) # 해당 URL로 이동
 
         # 회사명 크롤링
