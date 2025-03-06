@@ -3,7 +3,7 @@
 ### :raised_hands: 팀 소개
 -> 신정화 (ISFJ) 021214 / 차현주(INTP) 020919
 
-### 팀원 역할
+### :busts_in_silhouette: 팀원 역할
 - 신정화: 팀장, Backend, AI
 - 차현주: Frontend, AI
 
