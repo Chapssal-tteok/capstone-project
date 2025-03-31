@@ -1,10 +1,14 @@
-# :dango: 팀 찹쌀떡의 Groud Rule :dango:
+# :dango: 팀 찹쌀떡의 Ground Rule :dango:
 
 ### :raised_hands: 팀 소개
 -> 신정화 (ISFJ) 021214 / 차현주(INTP) 020919
 
+### :busts_in_silhouette: 팀원 역할
+- 신정화: 팀장, Backend, AI
+- 차현주: Frontend, AI
+
 ### :calendar: 회의 일정
--> 화요일 11:00 - 14:00 / 목요일 15:30 - 18:30 (오프라인)
+-> 월요일 17:00 - 18:30 / 목요일 15:30 - 18:30 (오프라인) / 그 외 필요 시 유동적으로 회의 추가
 
 ### :speaking_head: 회의 중에는?
 - 의견 있으면 눈치보지 말고 자유롭게 말하기
@@ -33,7 +37,3 @@
 - style: UI 스타일 관련 수정사항
 - refactor: 코드 리팩토링
 - minor: 코드 포매팅 등 동작에 영향을 주지 않는 사소한 수정사항
-
-### :pencil: 같이 공부하자!!
-- 정화: 스프링
-- 현주: 자바스크립트
