@@ -24,8 +24,8 @@
 # Project-Design & Implementation
 | 항목 | 내용 |
 |:---  |---  |
-| (1) 요구사항 정의 | ![기능명세서](https://github.com/Chapssal-tteok/capstone-project/blob/main/image/FunctionSpecificationFull.png) |
-| (2) 전체 시스템 구성 | ![시스템구성](https://github.com/Chapssal-tteok/capstone-project/blob/main/image/SystemArchitecture.png) |
+| (1) 요구사항 정의 | ![기능명세서](https://github.com/Chapssal-tteok/capstone-project/blob/main/image/FunctionSpecification.png) |
+| (2) 전체 시스템 구성 | ![시스템구성](https://github.com/Chapssal-tteok/capstone-project/blob/main/image/SystemArchitectureFull.png) |
 | (3) 주요엔진 및 기능 설계 | - 자기소개서 분석 엔진: GPT-4o를 활용하여 자기소개서 논리적 구조, 어휘 사용, 문법 등에 대한 피드백 제공  <br> - 면접 질문 생성 엔진: Perplexity AI 및 RAG 모델을 활용하여 기업 및 직무별 맞춤형 면접 질문 제공  <Br> - 음성 인식 및 합성 모듈: Google STT를 활용한 사용자의 음성 입력 분석, Google TTS를 활용한 면접 질문 음성 출력  <br> - 데이터 저장 및 검색: ChromaDB를 활용한 면접 질문 및 자기소개서 피드백 데이터 저장 및 검색 |
 | (4) 주요 기능의 구현 | 1. 자기소개서 피드백 기능  <br> 	- 사용자가 작성한 자기소개서를 GPT-4o가 분석하여 논리적 흐름, 어휘 사용, 문법 등에 대한 피드백 제공  <br>	- 피드백과 함께 개선된 예문 및 대체 문장 제공  <br> <br> 2. AI 면접 연습 기능  <br>	- Perplexity AI 및 RAG 모델을 활용하여 지원 기업 및 직무에 맞는 맞춤형 질문 생성  <br>	- Google STT를 활용하여 사용자의 음성 답변을 텍스트로 변환하고 GPT-4o를 활용해 피드백 제공 <br> - Google TTS를 활용하여 면접 질문을 음성으로 출력하여 실전 감각을 높임 |
 
